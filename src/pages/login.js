@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import TextField from '@material-ui/core/TextField';
 
 const FlexedDiv = styled.div`
 display: flex;
+height : 40vw;
 flex-direction: column;
 align-items: center;
-justify-content: space-around;
+justify-content: center;
 `
 class Login extends React.Component {
 
@@ -27,15 +29,30 @@ class Login extends React.Component {
 
     render() {
         return <FlexedDiv>
-            <label>
-                Username:
-                </label>
-            <input type="text" name="username" onChange={this.handleChange('username')} />
-            <label>
-                Password:
-                </label>
-            <input type="password" name="password" onChange={this.handleChange('password')} />
+            <div>Stock Portfolio Log In</div>
+            <br></br>
+            <TextField
+                label="Username"
+                variant="outlined"
+                onChange={this.handleChange('username')}
+                placeholder="Username"
+                InputLabelProps={{
+                    shrink: true,
+                }} />
+            <br></br>
+            <TextField
+                label="Password"
+                type="password"
+                variant="outlined"
+                onChange={this.handleChange('password')}
+                placeholder="Password"
+                InputLabelProps={{
+                    shrink: true,
+                }} />
+            <br></br>
             <Link to='/portfolio'>Login</Link>
+            <br></br>
+            <Link to='/register'>Register</Link>
         </FlexedDiv>
     }
 }

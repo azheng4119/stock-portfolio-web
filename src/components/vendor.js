@@ -4,6 +4,10 @@ import styled from 'styled-components'
 import { connect } from "react-redux";
 import { addSymbol } from '../store/utilities/portfolio'
 import { subtractFromBalance } from '../store/utilities/balance'
+import { addToHistory } from '../store/utilities/history'
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 
 const FlexedDiv = styled.div`
 display: flex;
@@ -40,10 +44,11 @@ class Vendor extends React.Component {
             try {
                 let { data } = await axios.get(`https://api-stock-portfolio.herokuapp.com/symbols/${this.state.tracker}`)
                 if (data['4. close']) {
+                    let ts = new Date();
                     let payload = {
                         symbol: this.state.tracker.toUpperCase(),
                         cost: data[`4. close`],
-                        timeBought: [Date.now()],
+                        timeBought: [ts.toLocaleString()],
                         shares: parseInt(this.state.qty)
                     }
                     let costToBuy = payload.cost * payload.shares
@@ -52,11 +57,12 @@ class Vendor extends React.Component {
                             error: `Insufficent Balance`
                         })
                     } else {
+                        this.props.addHistory(Object.values(payload).join('^'))
                         this.props.buySymbol(payload)
                         this.props.subtractBalance(costToBuy)
                         this.setState({
                             balance: this.state.balance - costToBuy,
-                            error : 'Success!'
+                            error: 'Success!'
                         })
                         this.props.updateBalance(this.state.balance)
                     }
@@ -72,16 +78,34 @@ class Vendor extends React.Component {
     }
     render() {
         return (<FlexedDiv>
-            <label>
-                Tracker
-            </label>
-            <input type="text" onChange={this.handleChange('tracker')} />
-            <label>
-                Qty
-            </label>
-            <input type="number" min="1" onChange={this.handleChange('qty')} />
-            <button onClick={() => this.attemptToBuy()}>Buy</button>
-            <div style={{ color: this.state.error === "Success!"? "green" : "red" }}>{this.state.error}</div>
+            <TextField
+                label="Ticker"
+                variant="outlined"
+                placeholder="Ticker"
+                type="text"
+                onChange={this.handleChange('tracker')}
+                InputLabelProps={{
+                    shrink: true,
+                }} />
+            <br></br>
+            <TextField
+                label="Qty"
+                defaultValue="0"
+                variant="outlined"
+                type="number"
+                min="1"
+                onChange={this.handleChange('qty')}
+                InputLabelProps={{
+                    shrink: true,
+                }} />
+            <br></br>
+            <Button
+                variant="outlined" 
+                color="primary"
+                onClick={() => this.attemptToBuy()}>Buy
+            </Button>
+            <br></br>
+            <div style={{ color: this.state.error === "Success!" ? "green" : "red" }}>{this.state.error}</div>
         </FlexedDiv>)
     }
 }
@@ -100,7 +124,11 @@ const mapDispatch = (dispatch) => {
         },
         subtractBalance: (amount) => {
             dispatch(subtractFromBalance(amount));
+        },
+        addHistory: receipt => {
+            dispatch(addToHistory(receipt));
         }
+
     }
 }
 

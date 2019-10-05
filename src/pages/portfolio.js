@@ -30,6 +30,7 @@ class Portfolio extends React.Component {
         return (
             <div>
                 <Header></Header>
+                <br></br>
                 <div style = {{textAlign : 'center'}}>{`Current Balance : $${this.state.balance.toFixed(2)}`}</div>
                 <FlexedDiv>
                     <Vendor updateBalance={this.updateBalance} />
