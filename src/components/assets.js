@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 class Assets extends React.Component {
 
     render() {
-        let assets = this.props.assets.map((asset, index) => {
+        let assets = Object.values(this.props.assets).map((asset, index) => {
+            console.log(asset)
             return (
                 <div key = {index}>
-                    <div>{`${asset.symbol.toUpperCase()} - ${asset.shares} Shares`}</div>
+                    <div>{`${asset.symbol} - ${asset.shares} Share`}</div>
                 </div>
             )
         })

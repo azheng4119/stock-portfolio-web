@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 export const addSymbol = symbol => {
     return {
         type: 'ADD_SYMBOL',
@@ -7,33 +5,23 @@ export const addSymbol = symbol => {
     }
 }
 
-export const addSymbolThunk = (symbol,qty) => async dispatch => {
-    console.log(symbol,qty);
-    try {
-        let { data } = await axios.get(`https://api-stock-portfolio.herokuapp.com/symbols/${symbol}`)
-        if (data['4. close']) {
-            console.log('added')
-            let payload = {
-                symbol : symbol,
-                cost : data[`4. close`],
-                timeBought : Date.now(),
-                shares : qty
-            }
-            dispatch(addSymbol(payload))
-        }else{
-            console.log('Not found')
-        }
-    } catch (error) {
-        console.log(error)
+const updatePayload = (payload,newPayload) => {
+    if (!(newPayload.symbol in payload)) {
+        payload[newPayload.symbol] = newPayload
     }
+    else{
+        newPayload.shares += payload[newPayload.symbol].shares;
+        newPayload.timeBought = payload[newPayload.symbol].timeBought.concat(newPayload.timeBought);
+        payload[newPayload.symbol] = newPayload
+    }
+    return payload
 }
 
-export default (state = [], action) => {
+export default (state = {}, action) => {
     switch (action.type) {
         case 'ADD_SYMBOL':
-            return [
-                ...state, action.payload
-            ]
+            updatePayload(state,action.payload)
+            return state
         default:
             return state
     }

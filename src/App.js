@@ -1,10 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Login from './components/login'
+import Login from './pages/login'
 import Transactions from './components/transactions'
 import './App.css';
 import Portfolio from './pages/portfolio';
-import Header from './components/header';
 
 class App extends React.Component {
   render() {
@@ -13,7 +12,6 @@ class App extends React.Component {
     const landingComponenet = () => (<Portfolio></Portfolio>)
     return (
       <Router>
-                  <Header></Header>
         <Switch>
           <Route exact path="/" render={loginComponent} />
           <Route exact path="/transactions" render={transactionsComponenet} />
