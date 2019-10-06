@@ -43,11 +43,11 @@ class Vendor extends React.Component {
         } else {
             try {
                 let { data } = await axios.get(`https://api-stock-portfolio.herokuapp.com/symbols/${this.state.tracker}`)
-                if (data['4. close']) {
+                if (data["Global Quote"]["05. price"]) {
                     let ts = new Date();
                     let payload = {
                         symbol: this.state.tracker.toUpperCase(),
-                        cost: data[`4. close`],
+                        cost: data["Global Quote"]["05. price"],
                         timeBought: [ts.toLocaleString()],
                         shares: parseInt(this.state.qty)
                     }

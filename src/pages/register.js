@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 
 const FlexedDiv = styled.div`
 display: flex;
-height : 70vw;
+margin-top : 100px;
 flex-direction: column;
 align-items: center;
 justify-content: center;
