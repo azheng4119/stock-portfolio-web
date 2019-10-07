@@ -1,11 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import md5 from 'blueimp-md5';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
+import { setUserThunk } from "../store/utilities/user"
 
 const FlexedDiv = styled.div`
 display: flex;
@@ -20,20 +21,30 @@ class Login extends React.Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            error: '',
         }
     }
 
     attemptToLogin = async () => {
-        let {data} = await axios.post(`https://api-stock-portfolio.herokuapp.com/user/login`,this.state)
-        if (data === "Success"){
-            
-        }
+        await axios.post(`https://api-stock-portfolio.herokuapp.com/user/login`, this.state).then(
+            async () => {
+                console.log(this.state.email)
+                await this.props.setUser(this.state.email);
+                this.setState({
+                    error: "Success"
+                })
+            }).catch(error => {
+                this.setState({
+                    error: "Invalid Credentials"
+                })
+                console.log(error)
+            }).catch(err => console.log(err))
     }
 
     handleChange = name => ({ target }) => {
         this.setState({
-            [name]: name === "password" ? md5(target.value): target.value
+            [name]: name === "password" ? md5(target.value) : target.value
         });
     }
 
@@ -60,11 +71,18 @@ class Login extends React.Component {
                     shrink: true,
                 }} />
             <br></br>
-            <Button onClick={()=>this.attemptToLogin()}>Log In</Button>
+            {this.state.error === "Success" ? <Redirect to="/portfolio"></Redirect> : this.state.error}
+            <Button onClick={() => this.attemptToLogin()}>Log In</Button>
             <br></br>
-            <Link to='/register'>Register</Link>
+            <span>Not a member? <Link to='/register'>Register!</Link></span>
         </FlexedDiv>
     }
 }
 
-export default connect()(Login)
+const mapDispatch = (dispatch) => {
+    return {
+        setUser: (id) => dispatch(setUserThunk(id))
+    }
+}
+
+export default connect(null, mapDispatch)(Login)

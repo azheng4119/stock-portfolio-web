@@ -11,7 +11,6 @@ const updatePayload = (payload,newPayload) => {
     }
     else{
         newPayload.shares += payload[newPayload.symbol].shares;
-        newPayload.timeBought = payload[newPayload.symbol].timeBought.concat(newPayload.timeBought);
         payload[newPayload.symbol] = newPayload
     }
     return payload

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import TextField from '@material-ui/core/TextField';
@@ -18,13 +18,15 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName : '',
-            lastName : '',
-            email : '',
+            firstName: '',
+            lastName: '',
+            email: '',
             username: '',
             password: '',
-            balance : 5000,
-            error : ''
+            balance: 5000,
+            error: '',
+            stocks : '',
+            history : [],
         }
     }
 
@@ -35,14 +37,15 @@ class Login extends React.Component {
     }
 
     attemptToRegister = async () => {
-        let {data} = await axios.post(`http://localhost:3000/user/register`,this.state);
-        if (data === "Email In Use"){
+        let { data } = await axios.post(`https://api-stock-portfolio.herokuapp.com/user/register`, this.state);
+        console.log(data);
+        if (data === "Email In Use") {
             this.setState({
-                error : data
+                error: data
             })
-        }else{
+        } else {
             this.setState({
-                error : "Success!"
+                error: "Success!"
             })
         }
     }
@@ -79,15 +82,6 @@ class Login extends React.Component {
                 }} />
             <br></br>
             <TextField
-                label="Username"
-                variant="outlined"
-                onChange={this.handleChange('username')}
-                placeholder="Username"
-                InputLabelProps={{
-                    shrink: true,
-                }} />
-            <br></br>
-            <TextField
                 label="Password"
                 type="password"
                 variant="outlined"
@@ -97,9 +91,9 @@ class Login extends React.Component {
                     shrink: true,
                 }} />
             <br></br>
-            <Button onClick={()=>this.attemptToRegister()}>Register</Button>
+            <Button onClick={() => this.attemptToRegister()}>Register</Button>
             <br></br>
-            {this.state.error}
+            {this.state.error === "Success!" ? <Redirect to="/"></Redirect> : this.state.error}
         </FlexedDiv>
     }
 }

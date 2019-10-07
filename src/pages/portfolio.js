@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Assets from '../components/assets';
 import Header from '../components/header'
 import { connect } from 'react-redux'
+import {Redirect} from 'react-router-dom'
 
 const FlexedDiv = styled.div`
 display: flex;
@@ -17,7 +18,8 @@ class Portfolio extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            balance: this.props.balance
+            fullName : `${this.props.user.firstName} ${this.props.user.lastName}`,
+            balance: this.props.user.balance
         }
     }
 
@@ -27,14 +29,16 @@ class Portfolio extends React.Component {
         })
     }
     render() {
+        console.log(this.state.fullName)
         return (
             <div>
+                {/* {this.props.user ? <Redirect to="/"/> : <></>} */}
                 <Header></Header>
-                <br></br>
-                <div style = {{textAlign : 'center'}}>{`Current Balance : $${this.state.balance.toFixed(2)}`}</div>
+                <p style = {{textAlign : 'center'}}>{`Welcome back, ${this.state.fullName} !`}</p>
+                <div style = {{textAlign : 'center'}}>{`Current Balance : ${parseInt(this.state.balance).toFixed(2)}`}</div>
                 <FlexedDiv>
                     <Vendor updateBalance={this.updateBalance} />
-                    <Assets balance = {this.state.balance} />
+                    <Assets />
                 </FlexedDiv>
             </div>
         )
@@ -43,7 +47,7 @@ class Portfolio extends React.Component {
 
 const mapState = state => {
     return {
-        balance: state.balance
+        user : state.user
     }
 }
 export default connect(mapState, null)(Portfolio)

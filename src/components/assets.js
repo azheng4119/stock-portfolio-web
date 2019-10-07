@@ -3,14 +3,19 @@ import { connect } from 'react-redux'
 class Assets extends React.Component {
 
     render() {
-        let assets = Object.values(this.props.assets).map((asset, index) => {
-            console.log(asset)
+        let stocks = {}
+        let assets = ""
+        if (this.props.user) {
+            stocks = JSON.parse(this.props.user.stocks);
+            assets = Object.keys(stocks).map((asset,index) =>{
             return (
                 <div key = {index}>
-                    <div>{`${asset.symbol} - ${asset.shares} Share`}</div>
+                    <div>{`${asset} - ${stocks[asset]} shares`}</div>
                 </div>
             )
-        })
+            })
+        }
+
 
         return (
             <div>
@@ -23,7 +28,7 @@ class Assets extends React.Component {
 
 const mapState = (state) => {
     return {
-        assets: state.portfolio
+        user : state.user
     }
 }
 

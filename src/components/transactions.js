@@ -13,7 +13,7 @@ justify-content: space-around;
 
 class Transactions extends React.Component {
     render() {
-        let history = Object.values(this.props.history).map((item, index) => {
+        let history = this.props.user.map((item, index) => {
             let data = item.split("^");
             return (<div key={index}>
                 {`${data[3]} share${parseInt(data[3]) > 1 ? 's': ''} of ${data[0]} @ $${data[1]} each on ${data[2]}`}
@@ -24,7 +24,7 @@ class Transactions extends React.Component {
             <Header></Header>
             <FlexedDiv>
                 Transaction History
-            {history}
+            {/* {history} */}
             </FlexedDiv>
         </div>
     }
@@ -32,7 +32,7 @@ class Transactions extends React.Component {
 
 const mapState = (state) => {
     return {
-        history: state.history
+        user : state.user.history
     }
 }
 
