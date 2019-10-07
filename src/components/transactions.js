@@ -23,7 +23,7 @@ class Transactions extends React.Component {
         )
         return <div>
             {this.props.user.email ? <></> : <Redirect to="/" />}
-            <Header></Header>
+            <Header title ="Transactions"></Header>
             <FlexedDiv>
                 Transaction History
             {history}

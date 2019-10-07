@@ -8,7 +8,7 @@ class Assets extends React.Component {
         this.state = {
             stocks: this.props.user.stocks ? JSON.parse(this.props.user.stocks) : {},
             costArray: [],
-            assets: [],
+            assets: ['empty'],
             totalPrice : 0
         }
     }
@@ -24,7 +24,7 @@ class Assets extends React.Component {
                 let cost = parseInt(data["Global Quote"]["05. price"])
                 let qty = parseInt(this.state.stocks[stock])
                 totalPrice += cost * qty;
-                assets.push(<div >{`${stock} - ${cost} - ${qty} shares`}</div>)
+                assets.push(<div >{`${stock} - $${cost} - ${qty} shares - Total : $${cost*qty}`}</div>)
             }
         }
         this.setState({
@@ -35,8 +35,8 @@ class Assets extends React.Component {
     render = () => {
         return (
             <div>
-                <p>{`Inventory - ${this.state.totalPrice}`}</p>
-                {this.state.assets}
+                <p>{`Inventory - $${this.state.totalPrice}`}</p>
+                {this.state.assets[0] === 'empty' ? `Loading Assets...` : this.state.assets }
             </div>
         )
     }

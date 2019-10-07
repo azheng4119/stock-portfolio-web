@@ -25,7 +25,7 @@ class Login extends React.Component {
             password: '',
             balance: 5000,
             error: '',
-            stocks : '',
+            stocks : '{}',
             history : [],
         }
     }
