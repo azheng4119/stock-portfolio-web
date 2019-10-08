@@ -31,7 +31,7 @@ class Portfolio extends React.Component {
     render() {
         return (
             <div>
-                {/* {this.props.user.email ?  <></> : <Redirect to="/"/> } */}
+                {this.props.user.email ?  <></> : <Redirect to="/"/> }
                 <Header title = "Portfolio"></Header>
                 <p style = {{textAlign : 'center'}}>{`Welcome back, ${this.state.fullName} !`}</p>
                 <div style = {{textAlign : 'center'}}>{`Current Balance : $${parseInt(this.state.balance).toFixed(2)}`}</div>
