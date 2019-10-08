@@ -19,7 +19,7 @@ export default function transactionCard(props) {
             <div>{symbol}</div>
             <div>{`${quantity} ${quantity > 1 ? "shares" : "share"}`}</div>
             <div>{`$${price}`}</div>
-            <div>{purchased}</div>
+            <div style ={{color : props.color ? props.color : "black"}}>{purchased}</div>
         </CardContainer>
     )
 }

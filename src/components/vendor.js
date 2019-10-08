@@ -73,7 +73,9 @@ class Vendor extends React.Component {
                     })
                 }
             } catch (error) {
-                console.log(error)
+                this.setState({
+                    error : `Please try again in 60 seconds. API call limit.`
+                })
             }
         }
     }

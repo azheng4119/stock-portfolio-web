@@ -7,10 +7,9 @@ import TransactionCard from './transactionCard';
 
 const FlexedDiv = styled.div`
 display: flex;
-padding : 50px;
+padding : 40px;
 flex-direction: row;
 flex-wrap : wrap;
-align-items: center;
 justify-content: space-between;
 `
 
@@ -18,9 +17,6 @@ class Transactions extends React.Component {
     render() {
         let history = this.props.user.history ? this.props.user.history.map((item, index) => {
             let data = item.split("^");
-            // return (<div key={index}>
-            //     {`${data[3]} share${parseInt(data[3]) > 1 ? 's' : ''} of ${data[0]} @ $${data[1]} each on ${data[2]}`}
-            // </div>)
             return (<TransactionCard
                 symbol={data[0]}
                 quantity={data[3]}
