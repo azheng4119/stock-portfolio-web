@@ -35,7 +35,7 @@ class Assets extends React.Component {
     render = () => {
         return (
             <div>
-                <p>{`Inventory - $${this.state.totalPrice}`}</p>
+                <p>{`Portfolio - $${this.state.totalPrice}`}</p>
                 {this.state.assets[0] === 'empty' ? `Loading Assets...` : this.state.assets }
             </div>
         )
