@@ -31,8 +31,9 @@ export default (state = {}, action) => {
         case "SET_USER":
             return action.payload
         case "UPDATE_USER" :
-            Object.keys(action.payload).map(key => state[key] = action.payload[key]);
-            return state
+            let newState = state;
+            Object.keys(action.payload).map(key => newState[key] = action.payload[key]);
+            return newState
         default:
             return state;
     }

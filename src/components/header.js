@@ -11,13 +11,13 @@ class Header extends React.Component {
                 <Typography style ={{flexGrow: 1,}}variant="h5" >
                     {this.props.title}
                 </Typography>
-                <Typography style ={{flexGrow: 1,}} variant="h7" >
+                <Typography style ={{flexGrow: 1,}} variant="h6" >
                     <Link style={{ color: 'white', textDecoration: 'none' }} to="/portfolio">Portfolio</Link>
                 </Typography>
-                <Typography style ={{flexGrow: 1,}} variant="h7" >
+                <Typography style ={{flexGrow: 1,}} variant="h6" >
                     <Link style={{ color: 'white', textDecoration: 'none' }} to="/transactions">Transactions</Link>
                 </Typography>
-                <Typography style ={{flexGrow: 1,}} variant="h7" >
+                <Typography style ={{flexGrow: 1,}} variant="h6" >
                     <Link style={{ color: 'white', textDecoration: 'none' }} to="/">Log Out</Link>
                 </Typography>
             </Toolbar>
