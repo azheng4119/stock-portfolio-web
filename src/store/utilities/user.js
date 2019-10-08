@@ -18,7 +18,6 @@ export const setUserThunk = id => async dispatch => {
 
 export const updateUserThunk = (id,data) => async dispatch => {
     try {
-        console.log(id,data)
         await Axios.put(`https://api-stock-portfolio.herokuapp.com/user/${id}`,data)
     }catch(error){
         console.log(error)

@@ -14,7 +14,6 @@ width:200px;
 
 export default function transactionCard(props) {
     let { symbol, quantity, purchased, price } = props
-    console.log(symbol, quantity, purchased, price)
     return (
         <CardContainer>
             <div>{symbol}</div>

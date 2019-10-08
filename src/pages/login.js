@@ -29,7 +29,6 @@ class Login extends React.Component {
     attemptToLogin = async () => {
         await axios.post(`https://api-stock-portfolio.herokuapp.com/user/login`, this.state).then(
             async () => {
-                console.log(this.state.email)
                 await this.props.setUser(this.state.email);
                 this.setState({
                     error: "Success"

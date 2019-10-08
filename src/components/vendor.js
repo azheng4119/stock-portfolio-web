@@ -55,7 +55,6 @@ class Vendor extends React.Component {
                         })
                     } else {
                         let oldStocks = JSON.parse(this.props.user.stocks)
-                        console.log(oldStocks)
                         oldStocks[this.state.tracker] = this.state.tracker in oldStocks ? oldStocks[this.state.tracker] + payload[3] : 1;
                         let toUpdate = {
                             balance : this.props.user.balance - costToBuy,

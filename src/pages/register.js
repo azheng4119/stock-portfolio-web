@@ -38,7 +38,6 @@ class Login extends React.Component {
 
     attemptToRegister = async () => {
         let { data } = await axios.post(`https://api-stock-portfolio.herokuapp.com/user/register`, this.state);
-        console.log(data);
         if (data === "Email In Use") {
             this.setState({
                 error: data
