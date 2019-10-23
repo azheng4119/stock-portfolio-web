@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { connect } from "react-redux"
-import { updateUser} from '../store/utilities/user'
+import { updateUser } from '../store/utilities/user'
 
 class Header extends React.Component {
     render() {
@@ -27,7 +27,7 @@ class Header extends React.Component {
     }
 }
 
-const mapDispatch = () => {
+const mapDispatch = (dispatch) => {
     return {
         logoutUser : (payload) => dispatch(updateUser(payload))
     }
