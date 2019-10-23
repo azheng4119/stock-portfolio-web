@@ -10,7 +10,7 @@ import { setUserThunk } from "../store/utilities/user"
 
 const FlexedDiv = styled.div`
 display: flex;
-height : 40vw;
+margin-top : 100px;
 flex-direction: column;
 align-items: center;
 justify-content: center;
